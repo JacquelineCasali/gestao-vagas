@@ -1,4 +1,4 @@
-package com.gestao.exceptions;
+package com.gestao.infra.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ErroMessageDTO {
-    String message;
     String field;
+    String message;
 }

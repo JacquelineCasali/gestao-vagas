@@ -1,4 +1,4 @@
-package com.gestao.exceptions;
+package com.gestao.infra.exceptions;
 
 
 import org.springframework.context.MessageSource;
