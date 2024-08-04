@@ -1,9 +1,17 @@
 package com.gestao.controller;
 
 
+import com.gestao.domain.candidato.Candidato;
 import com.gestao.domain.empresa.Empresa;
 import com.gestao.domain.empresa.EmpresaRepository;
 import com.gestao.domain.empresa.EmpresaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/empresa")
+@Tag(name = "Empresa",description = "Informação da empresa")
+
 public class EmpresaController {
 
 
@@ -29,6 +39,16 @@ public class EmpresaController {
     // mensagem ResponseEntity
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
+    @Operation(summary = "Cadastro de empresa", description = "Essa função é responsável por cadastrar uma empresa")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = Empresa.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Empresa já existe")
+    })
+
+
+
     public ResponseEntity<Object> create(@Valid @RequestBody Empresa empresa) {
         try {
             var createEmpresa = this.empresaService.execute(empresa);
@@ -39,6 +59,7 @@ public class EmpresaController {
 
     }
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     // implementar metodos
     public  ResponseEntity excluir(@PathVariable Long id) {
 

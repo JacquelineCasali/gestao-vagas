@@ -1,4 +1,12 @@
 package com.gestao.domain.candidato;
 
-public record DadosAutenticacao(String name, String password) {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record DadosAutenticacao(
+
+
+        @Schema(example ="Pedro" )
+        String name,
+        @Schema(example ="1234" )
+        String password) {
 }

@@ -2,6 +2,7 @@ package com.gestao.domain.vagas;
 
 
 import com.gestao.domain.empresa.Empresa;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
@@ -24,12 +25,13 @@ public class Vaga {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private  Long id;
-
+    @Schema(example = "Vaga para Desenvolvedor")
     private String  description;
     @NotBlank(message = "Esse Campo é obrigatório")
+    @Schema(example = "Pleno")
     private  String nivelDaVaga;
+    @Schema(example = "Plano de Saúde")
     private String beneficio;
-
 
     // uma empresa atrelada a vaga
 

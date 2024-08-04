@@ -1,6 +1,7 @@
 package com.gestao.domain.empresa;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,20 +26,25 @@ public class Empresa {
     @NotNull
     @NotBlank(message = "Name não pode ser vazio")
     @Column(unique = true)
+    @Schema(example = "Teste")
     private String name;
 
 
     @NotBlank(message = "Email não pode ser vazio")
     @Column(unique = true)
     @Email(message = "O campo deve conter um email valido")
+    @Schema(example = "teste@gmail.com")
     private String email ;
 
 
     @Length(min=4 , message = "A senha deve conter mais de 4 caracteres")
+   @Schema(example = "1234")
     private String password;
+    @Schema(example = "Empresa de desenvolvimento de sistemas")
     private String  description;
 
     @URL(message = "O campo deve conter uma url valida")
+    @Schema(example = "https://www.globo.com/")
     private  String webSite;
 
 

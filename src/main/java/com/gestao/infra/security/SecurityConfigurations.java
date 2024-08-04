@@ -32,7 +32,11 @@ public class SecurityConfigurations {
                     auth.requestMatchers("/candidato").permitAll()
                             .requestMatchers("/empresa").permitAll()
                             .requestMatchers("/empresa/login").permitAll()
- .requestMatchers("/candidato/login").permitAll();
+                         .requestMatchers("/candidato/login").permitAll()
+                      .requestMatchers("/swagger-ui/index.html","/v3/api-docs/**",
+                                    "/swagger-ui/**","/swagger-resource/**"
+                                    ).permitAll()
+                    ;
                     //demais rotas precisa de autenticação
                     auth.anyRequest().authenticated();
                 })

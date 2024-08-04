@@ -1,5 +1,6 @@
-package com.gestao.domain.candidato;
+package com.gestao.domain.candidato.service;
 
+import com.gestao.domain.candidato.CandidatoRepository;
 import com.gestao.domain.candidato.dto.PerfioCandidatoDTO;
 import com.gestao.infra.exceptions.UserFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
