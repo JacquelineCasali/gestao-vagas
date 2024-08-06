@@ -14,7 +14,8 @@ public class ListaVagasByFilterCandidatoService {
     private VagaRepository vagaRepository;
 
 public List<Vaga> execute(String filter){
-return this.vagaRepository.findByDescriptionContainingIgnoreCase(filter);
+
+    return this.vagaRepository.findByDescriptionContainingIgnoreCase(filter);
 }
 
 

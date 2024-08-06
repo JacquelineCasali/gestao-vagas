@@ -46,9 +46,6 @@ public class EmpresaController {
             }),
             @ApiResponse(responseCode = "400", description = "Empresa já existe")
     })
-
-
-
     public ResponseEntity<Object> create(@Valid @RequestBody Empresa empresa) {
         try {
             var createEmpresa = this.empresaService.execute(empresa);
