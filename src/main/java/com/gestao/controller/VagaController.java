@@ -1,11 +1,9 @@
 package com.gestao.controller;
 
 
-import com.gestao.domain.candidato.Candidato;
-import com.gestao.domain.empresa.Empresa;
 import com.gestao.domain.vagas.Vaga;
 import com.gestao.domain.vagas.VagaRepository;
-import com.gestao.domain.vagas.VagaService;
+import com.gestao.domain.vagas.CreateVagaService;
 import com.gestao.domain.vagas.CreateVagaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,7 +15,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +30,7 @@ public class VagaController {
 
 
     @Autowired
-    private VagaService vagaService;
+    private CreateVagaService vagaService;
 
     @Autowired
     private VagaRepository vagaRepository;
@@ -60,11 +57,11 @@ public class VagaController {
     public ResponseEntity<Object> create(@Valid @RequestBody CreateVagaDTO createVagaDTO, HttpServletRequest request) {
         try {
             // pegando o empresaId
-            var idUser = request.getAttribute("empresa_id");
+            var idEmpresa = request.getAttribute("empresa_id");
             //  vaga.setEmpresaId(Long.parseLong(idUser.toString()));
             var vaga = Vaga.builder()
                     .beneficio(createVagaDTO.getBeneficio())
-                    .empresaId(Long.parseLong(idUser.toString()))
+                    .empresaId(Long.parseLong(idEmpresa.toString()))
                     .description(createVagaDTO.getDescription())
                     .nivelDaVaga(createVagaDTO.getNivelDaVaga())
                     .build();

@@ -26,7 +26,7 @@ public class CandidatoService {
         candidato.setPassword(password);
 
         return this.candidatoRepository.save(candidato);
-        // return ResponseEntity.status(HttpStatus.CREATED).body(candidatoCreated);
+
 
     }
 

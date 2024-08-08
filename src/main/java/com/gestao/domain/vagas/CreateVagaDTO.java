@@ -2,11 +2,15 @@ package com.gestao.domain.vagas;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateVagaDTO {
 
     // O QUE PASSA POR USUARIO

@@ -17,7 +17,7 @@ public class SecurityConfigurations {
 
 
     @Autowired
-    SecurityEmpresaFilter securityFilter;
+    SecurityEmpresaFilter securityEmpresaFilter;
 
     @Autowired
     SecurityCandidatoFilter securityCandidatoFilter;
@@ -34,7 +34,7 @@ public class SecurityConfigurations {
                             .requestMatchers("/empresa/login").permitAll()
                          .requestMatchers("/candidato/login").permitAll()
                       .requestMatchers("/swagger-ui/index.html","/v3/api-docs/**",
-                                    "/swagger-ui/**","/swagger-resource/**"
+                                    "/swagger-ui/**","/swagger-resource/**", "/actuator/**"
                                     ).permitAll()
                     ;
                     //demais rotas precisa de autenticação
@@ -44,7 +44,7 @@ public class SecurityConfigurations {
 
                .addFilterBefore(securityCandidatoFilter,BasicAuthenticationFilter.class)
 
-                    .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
+                    .addFilterBefore(securityEmpresaFilter, BasicAuthenticationFilter.class);
 
 
 

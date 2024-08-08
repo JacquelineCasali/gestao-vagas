@@ -12,13 +12,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class SecurityEmpresaFilter extends OncePerRequestFilter {
 
     @Autowired
-    TokenService tokenService;
+    TokenServiceEmpresa tokenServiceEmpresa;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -30,7 +29,7 @@ public class SecurityEmpresaFilter extends OncePerRequestFilter {
 
            // verificação
            if (header != null) {
-               var token = this.tokenService.validateToken(header);
+               var token = this.tokenServiceEmpresa.validateToken(header);
                if (token == null) {
                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 

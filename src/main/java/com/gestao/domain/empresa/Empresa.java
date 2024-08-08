@@ -6,7 +6,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
@@ -16,7 +19,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity(name="empresas")
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Empresa {
 
     @Id
