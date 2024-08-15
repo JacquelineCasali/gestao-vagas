@@ -2,7 +2,7 @@ package com.gestao.domain.candidato.service;
 
 
 import com.gestao.domain.candidato.Candidato;
-import com.gestao.domain.candidato.CandidatoRepository;
+import com.gestao.domain.candidato.repository.CandidatoRepository;
 import com.gestao.infra.exceptions.UserFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +17,7 @@ public class CandidatoService {
     private PasswordEncoder passwordEncoder;
     public Candidato execute(Candidato candidato){
         // verificando se o usuario existe
-        this.candidatoRepository.findByNameOrEmail(candidato.getName(),candidato.getEmail())
+        this.candidatoRepository.findByUsernameOrEmail(candidato.getUsername(),candidato.getEmail())
                 .ifPresent((user)->{
                     throw new UserFoundException();
                 });

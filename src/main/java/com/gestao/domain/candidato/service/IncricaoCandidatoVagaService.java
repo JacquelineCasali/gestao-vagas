@@ -1,7 +1,7 @@
 package com.gestao.domain.candidato.service;
 
-import com.gestao.domain.candidato.CandidatoRepository;
-import com.gestao.domain.candidato.CandidatoVagaRepository;
+import com.gestao.domain.candidato.repository.CandidatoRepository;
+import com.gestao.domain.candidato.repository.CandidatoVagaRepository;
 import com.gestao.domain.candidato.entity.CandidatoVagaEntity;
 import com.gestao.domain.vagas.VagaRepository;
 import com.gestao.infra.exceptions.UserNotFoundException;

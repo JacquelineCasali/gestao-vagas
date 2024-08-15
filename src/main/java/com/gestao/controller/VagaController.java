@@ -3,8 +3,9 @@ package com.gestao.controller;
 
 import com.gestao.domain.vagas.Vaga;
 import com.gestao.domain.vagas.VagaRepository;
-import com.gestao.domain.vagas.CreateVagaService;
-import com.gestao.domain.vagas.CreateVagaDTO;
+import com.gestao.domain.vagas.service.CreateVagaService;
+import com.gestao.domain.vagas.dto.CreateVagaDTO;
+import com.gestao.domain.vagas.service.ListaTodasVagasByEmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,6 +36,10 @@ public class VagaController {
     @Autowired
     private VagaRepository vagaRepository;
 
+    @Autowired
+    private ListaTodasVagasByEmpresaService listaTodasVagasByEmpresaService;
+
+
     //criar
     // mensagem ResponseEntity
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -64,6 +69,8 @@ public class VagaController {
                     .empresaId(Long.parseLong(idEmpresa.toString()))
                     .description(createVagaDTO.getDescription())
                     .nivelDaVaga(createVagaDTO.getNivelDaVaga())
+                    .modalidadeVaga(createVagaDTO.getModalidadeVaga())
+                    .requisitos(createVagaDTO.getRequisitos())
                     .build();
             ///var createVaga= this.vagaService.execute(vaga);
             return ResponseEntity.ok().body(this.vagaService.execute(vaga));
@@ -93,6 +100,8 @@ public class VagaController {
                 updateVaga.setBeneficio(createVagaDTO.getBeneficio());
                 updateVaga.setDescription(createVagaDTO.getDescription());
                 updateVaga.setNivelDaVaga(createVagaDTO.getNivelDaVaga());
+                updateVaga.setModalidadeVaga(createVagaDTO.getModalidadeVaga());
+                updateVaga.setRequisitos(createVagaDTO.getRequisitos());
                 this.vagaRepository.save(updateVaga);
                 return ResponseEntity.ok(updateVaga);
 
@@ -101,14 +110,31 @@ public class VagaController {
             return ResponseEntity.badRequest().body("Id  não encontrado");
         }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping
+    //autorização so para rota  empresa
+    @PreAuthorize("hasRole('EMPRESA')")
+
+    @Operation(summary = "Listagem das Vagas", description = "Essa função é responsável por listar as vagas a empresa." +
+            "  É necessário está logando em uma empresa")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = Vaga.class))
+            }),
+
+    })
+
+// precisa de autenticação
+    @SecurityRequirement(name = "jwt_auth")
+
+    public ResponseEntity<Object>lisEmpresa( HttpServletRequest request){
+var empresaId= request.getAttribute("empresa_id");
+var result=this.listaTodasVagasByEmpresaService.execute(Long.parseLong(empresaId.toString()));
+return ResponseEntity.ok().body(result);
+        }
+
     }
-        // listar  as vagas
-//@GetMapping
-//    public List<Vaga> list(HttpServletRequest request){
-//
-//
-//        return vagaRepository.findAll();
-//}
+
 
 
 

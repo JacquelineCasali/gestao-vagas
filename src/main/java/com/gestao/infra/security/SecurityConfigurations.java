@@ -30,7 +30,7 @@ public class SecurityConfigurations {
                 // rotas sem login
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/candidato").permitAll()
-                            .requestMatchers("/empresa").permitAll()
+                            .requestMatchers("/empresa", "/empresa/${id}").permitAll()
                             .requestMatchers("/empresa/login").permitAll()
                          .requestMatchers("/candidato/login").permitAll()
                       .requestMatchers("/swagger-ui/index.html","/v3/api-docs/**",

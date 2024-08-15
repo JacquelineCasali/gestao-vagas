@@ -16,5 +16,6 @@ public interface VagaRepository extends JpaRepository<Vaga, Long> {
     //IgnoreCase - pesquisa por maiscula ou minuscula
     List<Vaga> findByDescriptionContainingIgnoreCase(String filter);
 
-   // List<Vaga> findByDescriptionContainingIgnoreCase(String title);
+   List<Vaga> findByEmpresaId(Long id);
+
 }

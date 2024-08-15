@@ -17,11 +17,12 @@ public class PerfioCandidatoDTO {
     @Schema(example ="Desenvolvedor Java" )
     private String  description;
      private  Long id;
-    @Schema(example ="Pedro" )
+    @Schema(example ="Pedro Costa" )
     private String name;
     @Schema(example ="pedro@terra.com.br" )
     private String email ;
 
-
+    @Schema(example ="pedro" )
+    private String username;
     }
 

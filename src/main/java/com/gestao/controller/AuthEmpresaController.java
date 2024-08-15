@@ -2,8 +2,8 @@ package com.gestao.controller;
 
 
 
-import com.gestao.domain.candidato.Candidato;
-import com.gestao.domain.empresa.AuthEmpresaService;
+
+import com.gestao.domain.empresa.service.AuthEmpresaService;
 import com.gestao.domain.empresa.dto.LoginDTO;
 
 import io.swagger.v3.oas.annotations.Operation;

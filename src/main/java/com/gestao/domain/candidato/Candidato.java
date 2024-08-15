@@ -25,8 +25,13 @@ public class Candidato {
     @NotNull
     @NotBlank(message = "Name não pode ser vazio")
     @Column(unique = true)
-    @Schema(example ="Pedro" )
+    @Schema(example ="Pedro Souza" )
     private String name;
+
+    @NotNull
+   @NotBlank(message = "Username não pode ser vazio")
+    @Schema(example ="pedro" )
+    private String username;
 
     @NotBlank(message = "Email não pode ser vazio")
     @Column(unique = true)

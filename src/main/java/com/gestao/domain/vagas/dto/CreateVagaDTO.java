@@ -1,4 +1,4 @@
-package com.gestao.domain.vagas;
+package com.gestao.domain.vagas.dto;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +29,8 @@ public class CreateVagaDTO {
     @Schema(example = "Plano de saúde")
 
     private String beneficio;
-
-
+    @Schema(example = "Remoto")
+    private String modalidadeVaga;
+    @Schema(example = "Minino 2 Anos de React.js")
+    private String requisitos;
 }

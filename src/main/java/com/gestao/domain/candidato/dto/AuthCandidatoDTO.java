@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 
 @Data
@@ -18,4 +19,5 @@ public class AuthCandidatoDTO {
 
 // quando que o token expira
     private Long expirise_in;
+    private List<String> roles;
 }

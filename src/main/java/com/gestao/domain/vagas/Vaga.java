@@ -25,6 +25,8 @@ public class Vaga {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private  Long id;
+
+    @NotBlank(message = "Esse Campo é obrigatório")
     @Schema(example = "Vaga para Desenvolvedor")
     private String  description;
     @NotBlank(message = "Esse Campo é obrigatório")
@@ -32,6 +34,13 @@ public class Vaga {
     private  String nivelDaVaga;
     @Schema(example = "Plano de Saúde")
     private String beneficio;
+    @NotBlank(message = "Esse Campo é obrigatório")
+    @Schema(example = "Remoto")
+    private String modalidadeVaga;
+   @Schema(example = "Inglês Fluente")
+    private String requisitos;
+
+
 
     // uma empresa atrelada a vaga
 

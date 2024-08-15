@@ -1,9 +1,10 @@
-package com.gestao.domain.empresa;
+package com.gestao.domain.empresa.service;
 
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.JWT;
 import com.gestao.domain.candidato.dto.AuthCandidatoDTO;
+import com.gestao.domain.empresa.EmpresaRepository;
 import com.gestao.domain.empresa.dto.AuthEmpresaDTO;
 import com.gestao.domain.empresa.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,12 @@ var passwordMatches= this.passwordEncoder.matches(loginDTO.getPassword(), empres
                     .sign(algorithm);
 
 
-
+        var roles=Arrays.asList("EMPRESA");
         var authEmpresa = AuthEmpresaDTO.builder()
                 .access_token(token)
                 .expirise_in(expiresIn.toEpochMilli())
+                .roles(roles)
+
                 .build();
 
 

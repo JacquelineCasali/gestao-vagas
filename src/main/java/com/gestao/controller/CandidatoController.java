@@ -2,13 +2,16 @@ package com.gestao.controller;
 
 
 import com.gestao.domain.candidato.Candidato;
-import com.gestao.domain.candidato.CandidatoRepository;
+
 import com.gestao.domain.candidato.dto.PerfioCandidatoDTO;
 import com.gestao.domain.candidato.service.CandidatoService;
 import com.gestao.domain.candidato.service.IncricaoCandidatoVagaService;
 import com.gestao.domain.candidato.service.ListaVagasByFilterCandidatoService;
 import com.gestao.domain.candidato.service.PerfioCandidatoService;
 import com.gestao.domain.vagas.Vaga;
+import com.gestao.domain.vagas.dto.VagaListaDTO;
+import com.gestao.domain.vagas.VagaRepository;
+import com.gestao.domain.vagas.service.ListaTodasVagasByCandidatoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +54,11 @@ public class CandidatoController {
 
     @Autowired
     private ListaVagasByFilterCandidatoService listaVagasByFilterCandidatoService;
+    @Autowired
+    private ListaTodasVagasByCandidatoService listaTodasVagasByCandidatoService;
 
+    @Autowired
+    VagaRepository vagaRepository;
 
     //criar
     // mensagem ResponseEntity
@@ -74,6 +81,26 @@ public class CandidatoController {
 
     }
 
+// lista
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/listavagas")
+    @Operation(summary = "Listagem de vagas ", description = "Essa função é responsável por listar todas as vagas disponíveis.   " +
+            "Precisa realizar o login do candidato")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = Vaga.class)))
+            })
+    })
+    // precisa de autenticação
+    @SecurityRequirement(name = "jwt_auth")
+    //autorização
+    //so candidato pode acessa essa rota
+    @PreAuthorize("hasRole('CANDIDATO')")
+    public List<VagaListaDTO> listar() {
+        List<VagaListaDTO> vagaList = vagaRepository.findAll().stream().map(VagaListaDTO::new).toList();
+        return vagaList;
+
+    }
 
     // traz um candidato
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -112,7 +139,7 @@ public class CandidatoController {
     @PreAuthorize("hasRole('CANDIDATO')")
 
     //documentação swagger
-    @Operation(summary = "Listagem de vagas disponivel para o candidato", description = "Essa função é responsável por listar todas as vagas disponíveis, baseada no filtro.   " +
+    @Operation(summary = "Listagem de vagas por busca ", description = "Essa função é responsável por listar todas as vagas disponíveis, baseada no filtro.   " +
             "Precisa realizar o login do candidato")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
@@ -152,4 +179,30 @@ public class CandidatoController {
 
 
     }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/vagas/candidatadas")
+    //autorização so para rota  empresa
+    @PreAuthorize("hasRole('CANDIDATO')")
+
+    @Operation(summary = "Listagem das Vagas candidatada", description = "Essa função é responsável por listar as vagas que o candidato aplicoou." +
+            "  É necessário está logando em uma empresa")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = Vaga.class))
+            }),
+
+    })
+
+// precisa de autenticação
+    @SecurityRequirement(name = "jwt_auth")
+
+    public ResponseEntity<Object>lisvagas( HttpServletRequest request){
+        var empresaId= request.getAttribute("candidato_id");
+        var result=this.listaTodasVagasByCandidatoService.execute(Long.parseLong(empresaId.toString()));
+        return ResponseEntity.ok().body(result);
+    }
+
+
 }

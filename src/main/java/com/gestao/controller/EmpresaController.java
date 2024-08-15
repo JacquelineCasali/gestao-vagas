@@ -1,16 +1,14 @@
 package com.gestao.controller;
 
 
-import com.gestao.domain.candidato.Candidato;
 import com.gestao.domain.empresa.Empresa;
 import com.gestao.domain.empresa.EmpresaRepository;
-import com.gestao.domain.empresa.EmpresaService;
+import com.gestao.domain.empresa.service.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import jakarta.validation.Valid;
@@ -56,7 +54,7 @@ public class EmpresaController {
 
     }
     @DeleteMapping("/{id}")
-    @SecurityRequirement(name = "jwt_auth")
+    //@SecurityRequirement(name = "jwt_auth")
     // implementar metodos
     public  ResponseEntity excluir(@PathVariable Long id) {
 

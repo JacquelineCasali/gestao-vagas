@@ -1,6 +1,8 @@
-package com.gestao.domain.empresa;
+package com.gestao.domain.empresa.service;
 
 
+import com.gestao.domain.empresa.Empresa;
+import com.gestao.domain.empresa.EmpresaRepository;
 import com.gestao.infra.exceptions.UserFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
